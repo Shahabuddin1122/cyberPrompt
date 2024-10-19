@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER-QUEST</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url('static/2.png');
+
+            /* Full height */
+
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .navbar {
+            background-color: #333;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 32px; /* Increased font size */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Catchy font family */
+            text-transform: uppercase; /* Uppercase text */
+            letter-spacing: 2px; /* Increased letter spacing */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Text shadow for better visibility */
+            transition: transform 0.3s ease-in-out; /* Smooth hover transition */
+        }
+
+        .navbar-brand .account-icon {
+            margin-right: 10px;
+        }
+
+        .navbar-brand:hover {
+            color: #ffc107; /* Yellow color for hover effect */
+            transform: scale(1.1); /* Scale up on hover */
+        }
+
+        .navbar-brand:hover .account-icon {
+            color: #ffc107; /* Yellow color for icon on hover */
+        }
+
+        .navbar .dropdown-menu {
+            background-color: #333;
+        }
+
+        .navbar .dropdown-menu a {
+            color: white;
+        }
+
+        .navbar .dropdown-menu a:hover {
+            background-color: #666;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-height: 600px;
+            overflow-y: auto;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+        .chat-message.bot {
+            justify-content: flex-start;
+        }
+        .chat-bubble {
+            max-width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .chat-bubble.user {
+            background-color: #007BFF;
+            color: white;
+        }
+        .chat-bubble.bot {
+            background-color: #e0e0e0;
+            color: black;
+        }
+
+
+        .search-form {
+            display: flex;
+            width: 100%;
+            max-width: 800px;
+            align-items: flex-end; /* Align items to the top */
+        }
+
+        .search-form textarea {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            overflow: auto; /* Allow overflow to be scrollable */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap; /* Preserve whitespace */
+            resize: none; /* Disable manual resizing by the user */
+            max-height: 6em; /* Limit the height to approximately 4 lines */
+        }
+
+        .search-form button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .footer {
+            background-color: #000;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            background-color: #d3d3d3;
+        }
+        .signup-photo {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        .signup-photo img {
+            width: 75%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .signup-form {
+            flex: 1;
+            background-color: #d3d3d3; /* Original color */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .signup-form label {
+            font-weight: bold;
+        }
+        .signup-form input[type="text"],
+        .signup-form input[type="email"],
+        .signup-form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #a48a8a;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .signup-form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #474795; /* Original color */
+            color: #dfcdde;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .signup-form input[type="submit"]:hover {
+            background-color: #9696b8; /* Original color */
+        }
+        .response-container {
+            margin-top: 20px;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* User question box */
+        .user-message {
+            background-color: white;
+            color: black;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            align-self: flex-end;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Bot response box */
+        .bot-message {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            align-self: flex-start;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Ensure proper scroll behavior */
+        .chat-container {
+            overflow-y: scroll;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="bg">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <!-- Website Name in the Middle -->
+        <a class="navbar-brand mx-auto" href="/">CYBER-QUEST</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Register <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About US</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Dropdown for Account -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="account-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM5.5 5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zM8 10c-1.5 0-2.942.5-4 1.337-.053-.932-.666-1.66-1.449-2.111C3.27 8.465 5.03 8 8 8s4.73.465 5.449 1.226c-.783.451-1.396 1.179-1.449 2.111A5.467 5.467 0 0 1 8 10zm4.8-2.551a6 6 0 1 0-9.6 0 8 8 0 1 0 9.6 0z"/>
+                        </svg>
+                    </span>
+                    Account
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/login"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 3.646a.5.5 0 0 1 0 .708L9.707 6H14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9.707l1.647 1.646a.5.5 0 0 1-.708.708l-2.5-2.5a.5.5 0 0 1 0-.708l2.5-2.5a.5.5 0 0 1 .708 0z"/>
+                        <path fill-rule="evenodd" d="M8 13a.5.5 0 0 1-.5.5H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6.5a.5.5 0 0 1 0 1H1v9h6.5a.5.5 0 0 1 .5.5z"/>
+                    </svg> Log In</a>
+                    <a class="dropdown-item" href="/logout"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 3.646a.5.5 0 0 1 0 .708L2.293 6H7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.293l2.353 2.354a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+                        <path fill-rule="evenodd" d="M7 13a.5.5 0 0 1 .5.5H15a1 1 0 0 1 1 1V4a1 1 0 0 1-1 1H7.5a.5.5 0 0 1 0-1H15V3H7.5a.5.5 0 0 1-.5-.5z"/>
+                    </svg> Log Out</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+      <!-- Main content -->
+    <div class="container">
+        <div class="chat-container">
+            <div id="conversation-user"></div>
+            <div id="container-bot"></div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+           <form class="search-form" onsubmit=handleSubmit(event)>
+                <textarea id="search-box" rows="1" placeholder="Search..." oninput="autoResize(this)"></textarea>
+                <button type="submit">
+                     <i class="fas fa-arrow-up"></i>
+                </button>
+            </form>
+        </div>
+    </footer>
+
+     <div class="response-container" id="response-container"></div>
+
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const searchValue = document.getElementById('search-box').value;
+            const submitButton = event.target.querySelector('button');
+            console.log("Search Value: ", searchValue);
+            submitButton.disabled = true;
+            // Add user message to conversation
+            const conversationUser = document.getElementById('conversation-user');
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-message';
+            userMessage.innerText = searchValue;
+            conversationUser.appendChild(userMessage);
+
+            try {
+                const response = await fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: searchValue }),
+                });
+
+                const result = await response.json();
+                console.log('Server Response:', result);
+
+                const botMessage = document.createElement('div');
+                botMessage.className = 'bot-message';
+                botMessage.innerHTML = `
+                    <h1>Label: ${result.label}</h1>
+                    <p>Response: ${result.response}</p>
+                    <p>${result.link}</p>
+                `;
+                conversationUser.appendChild(botMessage);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            finally {
+                document.getElementById('search-box').value = '';
+                submitButton.disabled = false
+            }
+        }
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            let maxHeight = 6 * parseFloat(getComputedStyle(textarea).lineHeight); // Calculate the maximum height (4 lines)
+            textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px'; // Limit height to max height
+        }
+
+    </script>
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

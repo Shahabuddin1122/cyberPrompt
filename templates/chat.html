@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <!-- Include any specific CSS styles needed for your chat interface -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .message-container {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-right: 10px;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 10px;
+            align-self: flex-start;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .search-form textarea {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            overflow: auto; /* Allow overflow to be scrollable */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap; /* Preserve whitespace */
+            resize: none; /* Disable manual resizing by the user */
+            max-height: 6em; /* Limit the height to approximately 4 lines */
+            margin-right: 10px; /* Add margin to the right to separate from the button */
+        }
+
+        .search-form button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: none;
+            border-radius: 50%;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-form button i {
+            font-size: 20px; /* Adjust the size of the icon */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Chat message display area -->
+        <div id="chatArea">
+            <!-- Bot's initial message -->
+            <div class="message-container">
+                <div class="bot-message">
+                    Hello
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat input form -->
+        <form class="search-form" onsubmit="sendMessage(event)">
+            <textarea rows="1" id="userInput" placeholder="Type here..." oninput="autoResize(this)"></textarea>
+            <button type="submit">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            let maxHeight = 6 * parseFloat(getComputedStyle(textarea).lineHeight); // Calculate the maximum height (4 lines)
+            textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px'; // Limit height to max height
+        }
+
+        function sendMessage(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let userInput = document.getElementById('userInput').value.trim().toLowerCase();
+
+            if (userInput === 'hi') {
+                addBotMessage('Hello');
+            } else {
+                // Handle other messages or scenarios here
+            }
+
+            // Clear the textarea after sending message
+            document.getElementById('userInput').value = '';
+        }
+
+        function addBotMessage(message) {
+            let messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
+
+            let botMessage = document.createElement('div');
+            botMessage.className = 'bot-message';
+            botMessage.textContent = message;
+
+            messageContainer.appendChild(botMessage);
+
+            // Append the new message container to the chat area
+            document.getElementById('chatArea').appendChild(messageContainer);
+
+            // Optionally, scroll to the bottom of the chat area
+            messageContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+    </script>
+</body>
+</html>
+

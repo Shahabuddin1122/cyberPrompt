@@ -1,0 +1,22 @@
+<!-- index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+
+        background-size: cover; /* Cover the entire background */
+        background-repeat: no-repeat; /* Prevent repeating of the background image */
+        background-image: url('{{ url_for('static', filename='2.png') }}'); /* Background image */
+        background-position: center; /* Center the background image */
+    }
+</style>
+
+
+
+<!-- Your additional content goes here -->
+<div>
+    <h1></h1>
+    <p></p>
+</div>
+{% endblock %}
